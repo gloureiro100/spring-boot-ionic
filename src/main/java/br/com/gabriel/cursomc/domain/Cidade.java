@@ -1,21 +1,17 @@
 package br.com.gabriel.cursomc.domain;
 
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Categoria implements Serializable {
-	
+public class Cidade implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -24,32 +20,27 @@ public class Categoria implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String  nome;
+	private String nome;
 	
-	@JsonManagedReference
-	@ManyToMany(mappedBy="categorias")
-	private List<Produto> produtos = new ArrayList<>();
-	
-	public Categoria(Integer id, String nome) {
+	@ManyToOne
+	@JoinColumn(name="estado_id")
+	private Estado estado;
+
+	public Cidade() {
+		super();
+	}
+
+
+
+	public Cidade(Integer id, String nome, Estado estado) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.estado = estado;
 	}
-	public Categoria() {
-		super();
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,6 +48,7 @@ public class Categoria implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,7 +57,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Cidade other = (Cidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -73,11 +65,29 @@ public class Categoria implements Serializable {
 			return false;
 		return true;
 	}
-	public List<Produto> getProdutos() {
-		return produtos;
+
+	public Integer getId() {
+		return id;
 	}
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 	
 	
