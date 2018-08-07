@@ -8,12 +8,19 @@ import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import br.com.gabriel.cursomc.enums.TipoCliente;
 
+@Entity
 public class Cliente implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String email;
@@ -82,6 +89,30 @@ public class Cliente implements Serializable {
 
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
+	}
+
+
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+
+
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 	
 	
